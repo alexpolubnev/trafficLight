@@ -1,8 +1,8 @@
 const state = {
   lights: [
-    { color: "red", active: true, time: 3, step: 1 },
+    { color: "red", active: true, time: 10, step: 1 },
     { color: "yellow", active: false, time: 3, step: -1 },
-    { color: "green", active: false, time: 3, step: -1 },
+    { color: "green", active: false, time: 15, step: -1 },
   ],
 };
 

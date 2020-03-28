@@ -1,5 +1,5 @@
 <template>
-  <div class="light" v-bind:class="[light.color, {active: light.active}]"></div>
+  <div class="light" v-bind:class="[light.color, {active: light.active}, {pulse: this.pulse}]"></div>
 </template>
 
 <script>
@@ -7,6 +7,12 @@ export default {
   mounted() {
     if (this.light.active) {
       this.next();
+      this.startPulse();
+    }
+  },
+  data() {
+    return {
+      pulse: false
     }
   },
   props: {
@@ -21,6 +27,16 @@ export default {
       setTimeout(() => {
         this.$emit("next-light", this.index);
       }, this.light.time * 1000);
+    },
+    startPulse(){
+      if(this.light.time > 3){
+        const waitTime = (this.light.time - 3) * 1000
+        setTimeout(() => {
+          this.pulse = true
+        }, waitTime);
+      }else {
+        this.pulse = true
+      }
     }
   }
 };
@@ -31,6 +47,17 @@ export default {
   background-color: $color;
   box-shadow: 0 0 25px $color;
 }
+@keyframes pulse {
+    0%{
+      opacity: 0.5;
+    }
+    50%{
+      opacity: 1;
+    }
+    100%{
+      opacity: 0.5;
+    }
+  }
 
 .light {
   width: 50px;
@@ -54,6 +81,9 @@ export default {
     &.active {
       @include lights(red);
     }
+  }
+  &.pulse {
+    animation: 1s pulse infinite;
   }
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
   <div class="traffic-light">
+    <h3>Время до смены цвета: {{this.time}} сек</h3>
     <div class="head">
       <LightItem
         v-for="(light, i) of lights"
@@ -17,13 +18,20 @@ import { mapGetters, mapActions, mapMutations } from "vuex";
 import LightItem from "./LightItem";
 export default {
   mounted() {
-    console.log(this.color);
     this.offAllActive(this.color);
-    this.lights = this.getAllLights();
+    const allLights = this.getAllLights();
+    allLights.forEach(element => {
+      if(element.active){
+        this.time = element.time;
+      }
+    });
+    this.lights = allLights;
+    this.changeTime();
   },
   data() {
     return {
-      lights: []
+      lights: [],
+      time: ''
     };
   },
   props: {
@@ -40,6 +48,14 @@ export default {
       this.nextLight(index);
       const url = "/" + this.lights[index + this.lights[index].step].color;
       this.$router.push(url);
+    },
+    changeTime() {
+      const timer = setInterval(() => {
+        if (this.time === 0){
+          clearInterval(timer);
+        }
+        this.time -= 1
+      }, 1000);
     }
   }
 };
