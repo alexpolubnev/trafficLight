@@ -1,39 +1,12 @@
 <template>
-  <div class="head">
-    <LightItem
-      v-for="(light, i) of lights"
-      v-bind:index="i"
-      v-bind:light="light"
-      v-on:next-light="next"
-    />
-  </div>
+  <TrafficLight v-bind:color="'yellow'" />
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from "vuex";
-import LightItem from "../LightItem";
+import TrafficLight from "../TrafficLight";
 export default {
-  mounted() {
-    this.offAllActive('yellow')
-    this.lights = this.getAllLights();
-  },
-  data() {
-    return {
-      lights: []
-    };
-  },
   components: {
-    LightItem
-  },
-  methods: {
-    ...mapGetters(["getAllLights"]),
-    ...mapActions(["nextLight"]),
-    ...mapMutations(["offAllActive"]),
-    next(index) {
-      this.nextLight(index);
-      const url = '/' + this.lights[index + this.lights[index].step].color
-      this.$router.push(url);
-    }
+    TrafficLight
   }
 };
 </script>

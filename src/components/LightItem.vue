@@ -1,35 +1,33 @@
 <template>
-    <div class="light"
-      v-bind:class="[light.color, {active: light.active}]"
-    ></div>
+  <div class="light" v-bind:class="[light.color, {active: light.active}]"></div>
 </template>
 
 <script>
 export default {
   mounted() {
-    if(this.light.active){
-      this.next()
+    if (this.light.active) {
+      this.next();
     }
   },
   props: {
-    light:{
+    light: {
       type: Object,
       required: true
     },
     index: Number
   },
   methods: {
-    next(){      
-      setTimeout(()=>{
-        this.$emit('next-light', this.index)
-      },this.light.time * 1000)
+    next() {
+      setTimeout(() => {
+        this.$emit("next-light", this.index);
+      }, this.light.time * 1000);
     }
   }
 };
 </script>
 
 <style lang="scss">
-  @mixin lights($color) {
+@mixin lights($color) {
   background-color: $color;
   box-shadow: 0 0 25px $color;
 }

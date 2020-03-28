@@ -3,9 +3,16 @@
   <div id="app">
     <h1>Traffic-light</h1>
     <hr />
+    <h3>Для удобства перехода по адресам: 
+      <router-link to="/red">Красный свет</router-link>
+      <router-link to="/yellow">Желтый свет</router-link>
+      <router-link to="/green">Зеленый свет</router-link>
+    </h3>
+    <hr/>
     <div class="container">
-      <TrafficLight/>
+      <router-view />
     </div>
+    
   </div>
 </template>
 
@@ -14,7 +21,7 @@ import TrafficLight from "./components/TrafficLight";
 export default {
   components: {
     TrafficLight
-  },
+  }
 };
 </script>
 
